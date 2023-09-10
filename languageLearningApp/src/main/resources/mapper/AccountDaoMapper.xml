@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.personalProject.languageLearningApp.dao.AccountDao">
+
+    <resultMap id="resultMap" type="com.personalProject.languageLearningApp.domain.Account">
+        <id property="id" column="id" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="token" column="token" />
+        <result property="email" column="email" />
+        <result property="tokenExpire" column="token_expire" />
+        <result property="accountType" column="account_type" />
+        <result property="language" column="language" />
+    </resultMap>
+
+    <sql id="tableName">
+        account_info
+    </sql>
+
+    <sql id="selectSql">
+        select id, username, password, token, email, token_expire, account_type, language
+    </sql>
+
+    <select id="findById" resultMap="resultMap">
+        <include refid="selectSql"/>
+        from <include refid="tableName"/>
+        where id = #{id}
+    </select>
+
+    <select id="findByCred" resultMap="resultMap">
+        <include refid="selectSql"/>
+        from <include refid="tableName"/>
+        where username = #{username} and token = #{token};
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.personalProject.languageLearningApp.domain.Account">
+        insert into <include refid="tableName"/>
+        (username, password, token, email, token_expire, account_type, language)
+        values (#{username}, #{password}, #{token}, #{email}, #{tokenExpire}, #{accountType}, #{language});
+    </insert>
+
+    <update id="updateLoginInfo">
+        UPDATE <include refid="tableName"/>
+        SET
+        token = #{token},
+        token_expire = #{tokenExpire}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updatePassword">
+        UPDATE <include refid="tableName"/>
+        SET
+        password = #{password}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateLanguage">
+        UPDATE <include refid="tableName"/>
+        SET
+        language = #{language}
+        WHERE id = #{id}
+    </update>
+
+</mapper>

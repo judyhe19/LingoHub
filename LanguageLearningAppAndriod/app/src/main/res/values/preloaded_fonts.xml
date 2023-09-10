@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/</item>
+        <item>@font/cabin</item>
+        <item>@font/crimson_text</item>
+        <item>@font/dm_sans</item>
+        <item>@font/ibm_plex_serif</item>
+        <item>@font/inter</item>
+        <item>@font/inter_thin</item>
+        <item>@font/quicksand</item>
+        <item>@font/roboto</item>
+    </array>
+</resources>

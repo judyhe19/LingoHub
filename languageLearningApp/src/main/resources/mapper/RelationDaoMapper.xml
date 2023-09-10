@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.personalProject.languageLearningApp.dao.RelationDao">
+
+    <resultMap id="relationMap" type="com.personalProject.languageLearningApp.domain.Relation">
+        <id property="id" column="id" />
+        <result property="fromResource" column="from_resource_type" />
+        <result property="fromResourceId" column="from_resource_id" />
+        <result property="toResource" column="to_resource_type" />
+        <result property="toResourceId" column="to_resource_id" />
+    </resultMap>
+
+    <sql id="tableName">
+        relations
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.personalProject.languageLearningApp.domain.Relation">
+        insert into <include refid="tableName"/>
+        (from_resource_type, from_resource_id, to_resource_type, to_resource_id)
+        values (#{fromResource}, #{fromResourceId}, #{toResource}, #{toResourceId});
+    </insert>
+</mapper>

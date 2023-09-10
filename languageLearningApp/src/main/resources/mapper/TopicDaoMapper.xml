@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.personalProject.languageLearningApp.dao.TopicDao">
+
+    <resultMap id="exerciseTopicMap" type="com.personalProject.languageLearningApp.domain.Topic">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="creatorAccountId" column="creator_account_id" />
+        <result property="createTime" column="create_time" />
+    </resultMap>
+
+    <sql id="tableName">
+        grammar_topics
+    </sql>
+
+    <sql id="selectSql">
+        select id, name, creator_account_id, create_time
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.personalProject.languageLearningApp.domain.Topic">
+        insert into <include refid="tableName"/>
+        (name, creator_account_id, create_time)
+        values (#{name}, #{creatorAccountId}, #{createTime});
+    </insert>
+    <update id="updateTypeNameById" useGeneratedKeys="true" keyProperty="id" parameterType="com.personalProject.languageLearningApp.domain.Topic">
+        UPDATE <include refid="tableName"/>
+        SET
+        name = #{name}
+        WHERE id = #{id}
+    </update>
+</mapper>

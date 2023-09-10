@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.personalProject.languageLearningApp.dao.GrammarExerciseDao">
+
+    <resultMap id="resultMap" type="com.personalProject.languageLearningApp.domain.Exercise">
+        <id property="id" column="id" />
+        <result property="question" column="question" />
+        <result property="answer" column="correct_answer" />
+        <result property="multipleChoice" column="multiple_choice" />
+        <result property="choiceA" column="choice_A" />
+        <result property="choiceB" column="choice_B" />
+        <result property="choiceC" column="choice_C" />
+        <result property="choiceD" column="choice_D" />
+        <result property="creatorAccountId" column="creator_account_id" />
+        <result property="createTime" column="create_time" />
+    </resultMap>
+
+    <sql id="tableName">
+        grammar_exercises
+    </sql>
+
+    <sql id="selectExercise">
+        select id, question, correct_answer, multiple_choice, choice_A, choice_B, choice_C, choice_D, creator_account_id, create_time
+    </sql>
+
+    <select id="findExerciseByQuestion" resultMap="resultMap">
+        <include refid="selectExercise"/>
+        from <include refid="tableName"/>
+        where question = #{question}
+    </select>
+    <select id="findExerciseById" resultMap="resultMap">
+        <include refid="selectExercise"/>
+        from <include refid="tableName"/>
+        where id = #{id}
+    </select>
+
+    <insert id="createExercise" useGeneratedKeys="true" keyProperty="id" parameterType="com.personalProject.languageLearningApp.domain.Exercise">
+        insert into <include refid="tableName"/>
+        (question, correct_answer, multiple_choice, choice_A, choice_B, choice_C, choice_D, creator_account_id, create_time)
+        values (#{question}, #{answer}, #{multipleChoice}, #{choiceA}, #{choiceB}, #{choiceC}, #{choiceD}, #{creatorAccountId}, #{createTime});
+    </insert>
+
+    <update id="updateExercise">
+        UPDATE <include refid="tableName"/>
+        SET
+        question = #{question}
+        correct_answer = #{answer}
+        multiple_choice = #{multipleChoice}
+        choice_A = #{choiceA}
+        choice_B = #{choiceC}
+        choice_C = #{choiceC}
+        choice_D = #{choiceD}
+        WHERE id = #{id}
+    </update>
+
+</mapper>
